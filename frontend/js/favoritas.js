@@ -3,19 +3,30 @@ window.onload = () => {
   const container = document.createElement("div");
   container.setAttribute("class", "container");
   app.appendChild(container);
-
+  const deleteButton = document.getElementById("btn-delete");
   // Aqui debemos agregar nuestro fetch
 
 
 
-  /** Codigo que debemos usar para mostrar los datos en el frontend*/
-  
-   
-  
-    let data = peliculas.data;
+  /* Codigo que debemos usar para mostrar los datos en el frontend
+  let data = peliculas.data
+*/
+deleteButton.addEventListener("click", () => {
+  const container = document.querySelector(".container");
+  container.innerHTML = ""; // Esto eliminará todos los elementos hijos del contenedor
+  localStorage.removeItem("favorita"); // Eliminar el elemento 'favorita' del localStorage
+  const a = document.querySelector("#Favoritas");
+  a.style.display = "none"; // Ocultar el elemento Favoritas si está visible
+});
 
-    data.forEach((movie) => {
-      const card = document.createElement("div");
+const data = JSON.parse(localStorage.getItem("favorita"));
+if (data.length < 1) {
+  const h1 = document.createElement("h1");
+  h1.innerText = "No agregaste ninguna pelicula a Favoritas";
+  app.appendChild(h1);
+}else {
+  data.forEach((movie) => {
+ const card = document.createElement("div");
       card.setAttribute("class", "card");
 
       const h1 = document.createElement("h1");
@@ -37,5 +48,5 @@ window.onload = () => {
       }
       card.appendChild(duracion);
     });
-  
+}
 };
